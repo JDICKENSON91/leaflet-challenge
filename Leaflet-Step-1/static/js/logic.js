@@ -8,14 +8,16 @@ function markerSize(magnitude) {
 
 // Function to return the color based on magnitude.
 function markerColor(magnitude) {
-    if (magnitude > 4) {
+    if (magnitude > 5) {
       return 'red'
-    } else if (magnitude > 3) {
+    } else if (magnitude > 4) {
       return 'orange'
-    } else if (magnitude > 2) {
+    } else if (magnitude > 3) {
       return 'yellow'
+    } else if (magnitude > 2) {
+        return 'green'
     } else {
-      return 'green'
+      return 'blue'
     }
   }
   
@@ -77,22 +79,32 @@ function addMarker(feature, location) {
   function createMap(earthquakes) {
   
       // Define streetmap and darkmap layers
-      var streetmap = L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}", {
+      var streetmap = L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
+        attribution: "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
         maxZoom: 18,
-        id: "mapbox.streets",
+        id: "mapbox/streets-v11",
         accessToken: API_KEY
       });
     
-      var darkmap = L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}", {
+      var darkmap = L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
+        attribution: "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
         maxZoom: 18,
-        id: "mapbox.dark",
+        id: "mapbox/dark-v10",
+        accessToken: API_KEY
+      });
+
+      var lightmap = L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
+        attribution: "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
+        maxZoom: 18,
+        id: "mapbox/light-v10",
         accessToken: API_KEY
       });
     
       // Define a baseMaps object to hold our base layers
       var baseMaps = {
         "Street Map": streetmap,
-        "Dark Map": darkmap
+        "Dark Map": darkmap,
+        "Light Map" : lightmap
       };
     
       // Create overlay object to hold our overlay layer
@@ -102,9 +114,9 @@ function addMarker(feature, location) {
 
       // Creating map object
 var myMap = L.map("map", {
-    center: [37.09, -95.71],
-    zoom: 5,
-    layers: [streetmap, earthquakes]
+    center: [-31.9505, 115.8605],
+    zoom: 3,
+    layers: [lightmap, earthquakes]
   });
   
   // Adding tile layer
@@ -116,6 +128,7 @@ var myMap = L.map("map", {
     id: "mapbox/outdoors-v11",
     accessToken: API_KEY
   }).addTo(myMap);
+  
     
       // creating the legend
       var legend = L.control({position: 'bottomright'});
@@ -127,10 +140,11 @@ var myMap = L.map("map", {
           
 
         div.innerHTML += "<h4>Magnitude</h4>";
-        div.innerHTML += '<i style="background: red"></i><span>4 or Higher</span><br>';
-        div.innerHTML += '<i style="background: orange"></i><span>Between 3 & 4</span><br>';
-        div.innerHTML += '<i style="background: yellow"></i><span>Between 2 & 3</span><br>';
-        div.innerHTML += '<i style="background: green"></i><span>Less Than 2</span><br>';
+        div.innerHTML += '<i style="background: red"></i><span>5 or Higher</span><br>';
+        div.innerHTML += '<i style="background: orange"></i><span>Between 4 & 5</span><br>';
+        div.innerHTML += '<i style="background: yellow"></i><span>Between 3 & 4</span><br>';
+        div.innerHTML += '<i style="background: green"></i><span>Between 2 & 3</span><br>';
+        div.innerHTML += '<i style="background: blue"></i><span>Less Than 2</span><br>';
 
   
         return div;
@@ -142,7 +156,7 @@ var myMap = L.map("map", {
       // Pass in our baseMaps and overlayMaps
       // Add the layer control to the map
       L.control.layers(baseMaps, overlayMaps, {
-        collapsed: false
+        collapsed: true
       }).addTo(myMap);
   
     }
