@@ -8,9 +8,9 @@ The goal for this assignment was to create a tool that would allow the United St
 The visualisation I have created takes the data and shows the eartquakes that have happened over the last 7 days. The points shown on the map represent each earthquake. The points vary in  color, size and opacity depending on the Magnitude of the earthquoake opacity. With red larger circles having the highest magnitude and small blue transparent circles have the lowest as shown in the Legend. 
 
 
-![https://raw.githubusercontent.com/JDICKENSON91/leaflet-challenge/master/Images/Image.PNG]
+![](https://raw.githubusercontent.com/JDICKENSON91/leaflet-challenge/master/Images/Image.PNG)
 
-```
+```java
 
 
 // Use this link to get the geojson data.
@@ -57,7 +57,7 @@ function markerOpacity(magnitude) {
   }
 
 
-// GET request, and function to handle returned JSON data.
+// Get request, and function to handle returned JSON data.
 d3.json(link, function(data) {
   
     var earthquakes = L.geoJSON(data.features, {
@@ -86,14 +86,14 @@ function addMarker(feature, location) {
   
   // Define a function we want to run once for each feature in the features array
   function addPopup(feature, layer) {
-      // Give each feature a pop up describing the place and time of the earthquake
+      // Give each feature a pop up description
       return layer.bindPopup(`<h3> ${feature.properties.place} </h3> <hr> <h4>Magnitude: ${feature.properties.mag} </h4> <p> ${Date(feature.properties.time)} </p>`);
   }
   
   // function to receive a layer of markers and plot them on a map.
   function createMap(earthquakes) {
   
-      // Define streetmap and darkmap layers
+      // Define different map layers
       var streetmap = L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
         attribution: "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
         maxZoom: 18,
@@ -127,7 +127,7 @@ function addMarker(feature, location) {
         Earthquakes: earthquakes
       };
 
-      // Creating map object
+      // Creating deafult map object
 var myMap = L.map("map", {
     center: [-31.9505, 115.8605],
     zoom: 3,
