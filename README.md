@@ -5,8 +5,12 @@
 
 The goal for this assignment was to create a tool that would allow the United States Geological Survey to visualize their data. The data used for this assignment was provided by the USGS via their GeoJSON formatted data which is updated every minute. The source of teh data can be found at https://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php.
 
-The visualisation I have created takes the data and shows the eartquakes that have happened over the last 7 days. The Magnitude of the earthquoake o
+The visualisation I have created takes the data and shows the eartquakes that have happened over the last 7 days. The points shown on the map represent each earthquake. The points vary in  color, size and opacity depending on the Magnitude of the earthquoake opacity. With red larger circles having the highest magnitude and small blue transparent circles have the lowest as shown in the Legend. 
 
+
+![https://raw.githubusercontent.com/JDICKENSON91/leaflet-challenge/master/Images/Image.PNG]
+
+```
 
 
 // Use this link to get the geojson data.
@@ -171,3 +175,5 @@ var myMap = L.map("map", {
       }).addTo(myMap);
   
     }
+
+    ```
